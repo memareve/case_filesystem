@@ -33,7 +33,6 @@ def acceptCommand(path):
     runCommand(command, path)
 
 
-
 def runCommand(n, path):
     if n == 1:
         dir_watch(path)
@@ -43,9 +42,15 @@ def runCommand(n, path):
         fname = input()
         fname = '/' + fname + '/'
         moveDown(path, fname)
-    """
     if n == 4:
+        sleep()
+        print(len(countFiles(path,[])))
+        main(path)
     if n == 5:
+        sleep()
+        print(len(countBytes(path, [])))
+        main(path)
+    """
     if n == 6:"""
     if n == 7:
         print('End of the session')
@@ -78,6 +83,20 @@ def moveDown(path, fn):
     else:
         print('No such folder')
         main(path)
+
+
+def countFiles(path, files):
+    if os.path.isfile(path):
+        return files.append(path)
+    for item in os.listdir(path):
+        item = os.path.join(path, item)
+        if os.path.isfile(item):
+            files.append(item)
+        else:
+            files = countFiles(item, files)
+    return files
+
+countBytes
 
 
 main(path_Main)
