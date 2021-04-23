@@ -97,7 +97,7 @@ def countFiles(path, files):
     return files
 
 
-def countBytes(path,bytes):
+def countBytes(path, bytes):
     if os.path.isfile(path):
         return os.path.getsize(path)
     for item in os.listdir(path):
