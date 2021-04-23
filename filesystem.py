@@ -48,7 +48,7 @@ def runCommand(n, path):
         main(path)
     if n == 5:
         sleep()
-        print(len(countBytes(path, [])))
+        print(sum(countBytes(path, [])))
         main(path)
     """
     if n == 6:"""
@@ -96,7 +96,17 @@ def countFiles(path, files):
             files = countFiles(item, files)
     return files
 
-countBytes
+
+def countBytes(path,bytes):
+    if os.path.isfile(path):
+        return os.path.getsize(path)
+    for item in os.listdir(path):
+        item = os.path.join(path, item)
+        if os.path.isfile(item):
+            bytes.append(os.path.getsize(item))
+        else:
+            bytes = countBytes(item, bytes)
+    return bytes
 
 
 main(path_Main)
