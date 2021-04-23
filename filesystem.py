@@ -17,17 +17,21 @@ def main(path):
     print(('1. Browse catalog\n2. Up the branch\n3. Down the branch\n4. Number of files in the directory\n'
            '5. Directory size in bytes\n6. File search\n7. Exit\n'))
     time.sleep(1)
-    print('Please select:')
     acceptCommand(path)
 
 
 def acceptCommand(path):
+    print('Please select:')
     command = input()
     if command == 'exit':
         command = 7
     command = int(command)
+    if not (command in [1, 2, 3, 4, 5, 6, 7]):
+        print('ERROR')
+        sleep()
+        acceptCommand(path)
     runCommand(command, path)
-    # добавить исключение!
+
 
 
 def runCommand(n, path):
