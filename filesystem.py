@@ -1,17 +1,24 @@
+# Case-study
+# Developers:
+# Marinkin O. (66%),
+# Seledtsov A. (36%),
+# Evdischenko M. (59%)
+
 import os
 from pathlib import Path
 import time
-
 
 path_Main = 'F:/case'
 
 
 def sleep():
+    """Output delay function"""
     print()
     time.sleep(1)
 
 
 def main(path):
+    """Menu output function"""
     print()
     print(path)
     print(('1. Browse catalog\n2. Up the branch\n3. Down the branch\n4. Number of files in the directory\n'
@@ -21,6 +28,7 @@ def main(path):
 
 
 def acceptCommand(path):
+    """Selection input function"""
     print('Please select:')
     command = input()
     if command == 'exit':
@@ -34,6 +42,7 @@ def acceptCommand(path):
 
 
 def runCommand(n, path):
+    """A function that defines the execution of a function"""
     if n == 1:
         dir_watch(path)
     if n == 2:
@@ -44,7 +53,7 @@ def runCommand(n, path):
         moveDown(path, fname)
     if n == 4:
         sleep()
-        print(len(countFiles(path,[])))
+        print(len(countFiles(path, [])))
         main(path)
     if n == 5:
         sleep()
@@ -59,6 +68,7 @@ def runCommand(n, path):
 
 
 def dir_watch(path):
+    """The function that determines the execution of the selected function"""
     sleep()
     for dirs, folders, files in os.walk(path):
         print('Folders: ', *folders)
@@ -69,6 +79,7 @@ def dir_watch(path):
 
 
 def moveUp(path):
+    """A function that makes the current parent directory"""
     sleep()
     path = Path(path)
     path = path.parent.absolute()
@@ -77,6 +88,7 @@ def moveUp(path):
 
 
 def moveDown(path, fn):
+    """A function that allows you to go down a branch in a directory"""
     sleep()
     fn = str(path) + fn
     if os.path.exists(fn):
@@ -87,6 +99,7 @@ def moveDown(path, fn):
 
 
 def countFiles(path, files):
+    """A function that counts the number of files in a directory"""
     if os.path.isfile(path):
         return files.append(path)
     for file_srch in os.listdir(path):
@@ -99,6 +112,7 @@ def countFiles(path, files):
 
 
 def countBytes(path, bytes):
+    """A function that calculates the weight of files in a directory"""
     if os.path.isfile(path):
         return os.path.getsize(path)
     for file_srch in os.listdir(path):
@@ -109,8 +123,9 @@ def countBytes(path, bytes):
             bytes = countBytes(file_srch, bytes)
     return bytes
 
-def findFiles(target, path):
 
+def findFiles(target, path):
+    """A function that generates a list of file paths"""
     for file_srch in os.listdir(path):
         file_srch = os.path.join(path, file_srch)
         if target in os.listdir(path):
