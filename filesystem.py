@@ -50,8 +50,9 @@ def runCommand(n, path):
         sleep()
         print(sum(countBytes(path, [])))
         main(path)
-    """
-    if n == 6:"""
+    if n == 6:
+        target = input()
+        print(findFiles(target, path))
     if n == 7:
         print('End of the session')
         exit()
@@ -88,25 +89,39 @@ def moveDown(path, fn):
 def countFiles(path, files):
     if os.path.isfile(path):
         return files.append(path)
-    for item in os.listdir(path):
-        item = os.path.join(path, item)
-        if os.path.isfile(item):
-            files.append(item)
+    for file_srch in os.listdir(path):
+        file_srch = os.path.join(path, file_srch)
+        if os.path.isfile(file_srch):
+            files.append(file_srch)
         else:
-            files = countFiles(item, files)
+            files = countFiles(file_srch, files)
     return files
 
 
 def countBytes(path, bytes):
     if os.path.isfile(path):
         return os.path.getsize(path)
-    for item in os.listdir(path):
-        item = os.path.join(path, item)
-        if os.path.isfile(item):
-            bytes.append(os.path.getsize(item))
+    for file_srch in os.listdir(path):
+        file_srch = os.path.join(path, file_srch)
+        if os.path.isfile(file_srch):
+            bytes.append(os.path.getsize(file_srch))
         else:
-            bytes = countBytes(item, bytes)
+            bytes = countBytes(file_srch, bytes)
     return bytes
+
+def findFiles(target, path):
+
+    for file_srch in os.listdir(path):
+        file_srch = os.path.join(path, file_srch)
+        if target in os.listdir(path):
+            path = os.path.join(path, target)
+            return path
+        elif os.path.isfile(file_srch):
+            return None
+        else:
+            path = os.path.join(path, file_srch)
+            return findFiles(target, path)
+    return 'No such file'
 
 
 main(path_Main)
